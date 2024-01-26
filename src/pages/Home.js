@@ -38,7 +38,7 @@ const Home = () => {
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Category
                                 </a>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     {categories && categories.map((category) => (
                                         <li class="dropdown-item">
                                             <Link to={`/categories/${category.id}/products`} className="nav-link">{category.name}</Link>
@@ -51,7 +51,10 @@ const Home = () => {
                                 <Link to={`/checkout`} className="nav-link">Checkout</Link>
                             </li>
                             <li class="nav-item">
-                                <Link to={`/categories`} className="nav-link">Category</Link>
+                                <Link to={`/categories`} className="nav-link">New Category</Link>
+                            </li>
+                            <li class="nav-item">
+                                <Link to={`/products`} className="nav-link">New Product</Link>
                             </li>
                         </ul>
                     </div>

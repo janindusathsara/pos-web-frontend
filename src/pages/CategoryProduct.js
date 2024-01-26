@@ -1,7 +1,7 @@
 import axios from "axios";
 import './CategoryProduct.css';
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const CategoryProduct = () => {
 
@@ -34,10 +34,14 @@ const CategoryProduct = () => {
             </div>
             <div className="products-row">
                 {products && products.map(product => (
-                    <div className="card col-lg-3 col-sm-6">
+                    <div className="card col-lg-3 col-sm-6" >
                         <h5 className="card-title">{product.name}</h5>
                         <div className="card-text">LKR {product.price}</div>
                         <div className="card-text">Stock: {product.qty}</div>
+                        <button className="btn btn-dark text-right">
+                            <Link to={`/categories/${id}/products/${product.id}`}>Update</Link>
+                            
+                            </button>
                     </div>
                 ))}
             </div>
