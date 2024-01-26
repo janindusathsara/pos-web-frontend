@@ -15,7 +15,7 @@ const Category = () => {
         const data = {
             "name": name
         }
-        
+
         fetch("http://localhost:8080/categories", {
             method: 'POST',
             headers: {
@@ -37,12 +37,28 @@ const Category = () => {
     return (
 
         <>
-            <form className="form" onSubmit={handleSubmit}>
-                <div className="form-group mb-3">
-                    <label>Category Name</label>
-                    <input type="text" required className="form-control" onChange={handleName} value={name} />
-                </div>
-                <button className="btn btn-primary" type="submit">Save Category</button>
+
+            <form class="form-horizontal" onSubmit={handleSubmit}>
+                <fieldset>
+
+                    <legend>Update Product</legend>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" >Name</label>
+                        <div class="col-md-5">
+                            <input type="text" placeholder="Enter Category Name" class="form-control input-md" required onChange={handleName} value={name} />
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for=""></label>
+                        <div class="col-md-4">
+                            <button class="btn btn-primary">Save Category</button>
+                        </div>
+                    </div>
+
+                </fieldset>
             </form>
 
         </>
