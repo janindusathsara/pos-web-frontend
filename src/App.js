@@ -9,19 +9,28 @@ import Category from './pages/Category';
 import Checkout from './pages/Checkout';
 import CategoryProduct from './pages/CategoryProduct';
 import UpdateProduct from './pages/UpdateProduct';
+import Register from './pages/auth/Register';
+import Login from './pages/auth/Login';
+import ProtectedRoutes from './utils/ProtectedRoutes';
 
 function App() {
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route index element={<Home />} />
-        <Route path='products' element={<Product />} />
-        <Route path='products/:id' element={<SingleProduct />} />
-        <Route path='categories/:id/products' element={<CategoryProduct />} />
-        <Route path='checkout' element={<Checkout />} />
-        <Route path='categories' element={<Category />} />
-        <Route path='categories/:id/products/:id' element={<UpdateProduct />} />
+
+        <Route element={<ProtectedRoutes />}>
+          <Route index element={<Home />} />
+          <Route path='/products' element={<Product />} />
+          <Route path='/products/:id' element={<SingleProduct />} />
+          <Route path='/categories/:id/products' element={<CategoryProduct />} />
+          <Route path='/checkout' element={<Checkout />} />
+          <Route path='/categories' element={<Category />} />
+          <Route path='/categories/:id/products/:id' element={<UpdateProduct />} />
+        </Route>
+
+        <Route path='/register' element={<Register />} />
+        <Route path='/login' element={<Login />} />
       </Routes>
     </BrowserRouter>
   )

@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useState } from "react";
 import './Category.css';
 
@@ -41,7 +40,7 @@ const Category = () => {
             <form class="form-horizontal" onSubmit={handleSubmit}>
                 <fieldset>
 
-                    <legend>Update Product</legend>
+                    <legend>Create New Category</legend>
 
                     <div class="form-group">
                         <label class="col-md-4 control-label" >Name</label>

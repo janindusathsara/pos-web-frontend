@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Product from "./Product";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -8,19 +8,42 @@ const Home = () => {
     const [products, setProducts] = useState(null);
     const [categories, setCategories] = useState(null);
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         getProducts();
         getCategories();
     }, [])
 
     const getProducts = async () => {
-        const response = await axios.get("http://localhost:8080/products");
-        setProducts(response.data);
+
+        try {
+            const response = await axios.get("http://localhost:8080/products");
+            setProducts(response.data);
+        } catch (error) {
+            if (error.response.status === 401) {
+                navigate("/login");
+            }
+        }
+
     }
 
     const getCategories = async () => {
-        const response = await axios.get("http://localhost:8080/categories");
-        setCategories(response.data);
+
+        try {
+            const response = await axios.get("http://localhost:8080/categories");
+            setCategories(response.data);
+        } catch (error) {
+            if (error.response.status === 401) {
+                navigate("/login");
+            }
+        }
+
+    }
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        navigate("/login");
     }
 
     return (
@@ -55,6 +78,9 @@ const Home = () => {
                             </li>
                             <li class="nav-item">
                                 <Link to={`/products`} className="nav-link">New Product</Link>
+                            </li>
+                            <li class="nav-item">
+                                <button className="btn btn-danger" onClick={handleLogout}>Logout</button>
                             </li>
                         </ul>
                     </div>
