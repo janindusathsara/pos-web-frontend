@@ -12,6 +12,7 @@ import UpdateProduct from './pages/UpdateProduct';
 import Register from './pages/auth/Register';
 import Login from './pages/auth/Login';
 import ProtectedRoutes from './utils/ProtectedRoutes';
+import User from './pages/User';
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
           <Route path='/checkout' element={<Checkout />} />
           <Route path='/categories' element={<Category />} />
           <Route path='/categories/:id/products/:id' element={<UpdateProduct />} />
+          <Route path='/user' element={<User />} />
         </Route>
 
         <Route path='/register' element={<Register />} />

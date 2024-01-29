@@ -1,5 +1,5 @@
 import { useState } from "react";
-import './Category.css';
+import './Styles.css';
 
 const Category = () => {
 

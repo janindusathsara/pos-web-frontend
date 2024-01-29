@@ -1,0 +1,33 @@
+.form-horizontal{
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.dropdownCategory{
+    list-style-type: none;
+    position: absolute;
+    top: 4.5rem;
+    left: -5rem;
+    width: 170px;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: rgb(228, 237, 238);
+    border: 1px solid gray;
+}
+
+.dropdownCategory::before{
+    content: '';
+    position: absolute;
+    top: -0.7rem;
+    right: 7.1rem;
+    width: 20px;
+    height: 20px;
+    transform: rotate(45deg);
+    background-color: rgb(228, 237, 238);
+    border-left: 1px solid gray;
+    border-top: 1px solid gray;
+}
+
+.topnav-right{
+    float: right;
+}
