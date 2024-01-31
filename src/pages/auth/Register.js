@@ -47,7 +47,7 @@ const Register = () => {
         <>
             <div className="login-box">
                 <div className="text-center mb-5">
-                    <h1>User Register</h1>
+                    <h1 className='mt-4'>User Register</h1>
                 </div>
                 <form onSubmit={handleRegister}>
                     <div className="form-group mb-3">

@@ -22,13 +22,13 @@ function App() {
 
         <Route element={<ProtectedRoutes />}>
           <Route index element={<Home />} />
-          <Route path='/products' element={<Product />} />
-          <Route path='/products/:id' element={<SingleProduct />} />
+          <Route path='/products/:id' element={<Product />} />
+          <Route path='/single-products/:id' element={<SingleProduct />} />
           <Route path='/categories/:id/products' element={<CategoryProduct />} />
-          <Route path='/checkout' element={<Checkout />} />
+          <Route path='/checkout/:id' element={<Checkout />} />
           <Route path='/categories' element={<Category />} />
-          <Route path='/categories/:id/products/:id' element={<UpdateProduct />} />
-          <Route path='/user' element={<User />} />
+          <Route path='/user/:id/update-product/:id' element={<UpdateProduct />} />
+          <Route path='/user/:id' element={<User />} />
         </Route>
 
         <Route path='/register' element={<Register />} />

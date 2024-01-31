@@ -1,25 +1,25 @@
-.form-horizontal{
+.forms {
     max-width: 600px;
     margin: 0 auto;
 }
 
-.dropdownCategory{
+.dropdownCategory {
     list-style-type: none;
     position: absolute;
     top: 4.5rem;
     left: -5rem;
-    width: 170px;
+    width: 150px;
     padding: 15px;
     border-radius: 8px;
     background-color: rgb(228, 237, 238);
     border: 1px solid gray;
 }
 
-.dropdownCategory::before{
+.dropdownCategory::before {
     content: '';
     position: absolute;
     top: -0.7rem;
-    right: 7.1rem;
+    right: 6.1rem;
     width: 20px;
     height: 20px;
     transform: rotate(45deg);
@@ -28,6 +28,23 @@
     border-top: 1px solid gray;
 }
 
-.topnav-right{
+.topnav-right {
     float: right;
+}
+
+.allProducts {
+    align-content: center;
+    display: ruby;
+}
+
+.products-row {
+    display: ruby-text;
+}
+
+.allProducts{
+    display: ruby;
+}
+
+.allOrders{
+    display: ruby;
 }

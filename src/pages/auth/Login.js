@@ -50,7 +50,7 @@ const Login = () => {
 
     return (
         <>
-            <div className="text-center mb-5">
+            <div className="text-center mb-5 mt-4">
                 <h3>Welcome! Please Login to continue.</h3>
                 <div>New member?<button type="button" class="btn btn-link" onClick={handleRegister}>Register</button>here.</div>
             </div>

@@ -10,6 +10,20 @@ const Home = () => {
     const [categories, setCategories] = useState(null);
     const [catagory, setCategory] = useState(false);
     const [cursor, setCursor] = useState('pointer');
+    const [userDetail, setUserDetail] = useState({
+        id: "",
+        username: "",
+        email: "",
+        password: ""
+    });
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        getUserDetails();
+        getProducts();
+        getCategories();
+    }, [])
 
     const changeCursor = () => {
         setCategory((prev) => !prev)
@@ -18,23 +32,21 @@ const Home = () => {
         });
     }
 
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        getProducts();
-        getCategories();
-    }, [])
-
-    const getProducts = async () => {
-
+    const getUserDetails = async () => {
         try {
-            const response = await axios.get("http://localhost:8080/products");
-            setProducts(response.data);
+            const response = await axios.get("http://localhost:8080/getuser");
+            setUserDetail(response.data);
         } catch (error) {
             if (error.response.status === 401) {
                 navigate("/login");
             }
         }
+    }
+
+    const getProducts = async () => {
+
+        const response = await axios.get("http://localhost:8080/products");
+        setProducts(response.data);
 
     }
 
@@ -64,7 +76,7 @@ const Home = () => {
         setCursor(() => {
             return 'pointer';
         });
-        navigate("/user");
+        navigate(`/user/${userDetail.id}`);
     }
 
     return (
@@ -83,10 +95,10 @@ const Home = () => {
                             </li>
 
                             <li class="nav-item">
-                                <Link to={`/checkout`} className="nav-link">Checkout</Link>
+                                <Link to={`/checkout/${userDetail.id}`} className="nav-link">Checkout</Link>
                             </li>
                             <li class="nav-item">
-                                <Link to={`/products`} className="nav-link">New Product</Link>
+                                <Link to={`/products/${userDetail.id}`} className="nav-link">New Product</Link>
                             </li>
                             <li class="nav-item px-2" onClick={handleUser} style={{ cursor: cursor }}>
                                 <h7 className="nav-link navCategory">User</h7>
@@ -99,22 +111,23 @@ const Home = () => {
                 </div>
             </nav>
 
-            <h1>Home</h1>
+            <h2 className="text-center my-2">POS - SYSTEM</h2>
+            <div className="allProducts">
 
-            <ul>
-                <li>
-                    <Link to="/products">Products</Link>
-                </li>
-            </ul>
-
-            <ol>
                 {products && products.map((product) => (
-                    <li>
-                        <Link to={`/products/${product.id}`}>{product.name}</Link>
-                    </li>
-                ))}
-            </ol>
 
+                    <div className="card col-lg-3 col-sm-6 border-primary-subtle" >
+                        <h5 className="card-title">{product.name}</h5>
+                        <div className="card-text">{product.description}</div>
+                        <div className="card-text">LKR {product.price}</div>
+                        <div className="card-text">Stock: {product.qty}</div>
+
+                    </div>
+                    
+                ))}
+
+
+            </div>
 
         </>
     )

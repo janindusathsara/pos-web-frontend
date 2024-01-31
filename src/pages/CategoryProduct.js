@@ -1,7 +1,14 @@
 import axios from "axios";
 import './CategoryProduct.css';
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import {
+    MDBCard,
+    MDBCardBody,
+    MDBCardTitle,
+    MDBCardText,
+    MDBBtn
+  } from 'mdb-react-ui-kit';
 
 const CategoryProduct = () => {
 
@@ -27,24 +34,23 @@ const CategoryProduct = () => {
     return (
         <>
 
-            <div className="row">
+            <div className="row mt-3">
                 {category &&
-                    <h2 className="container text-center">{category.name}</h2>
+                    <h2 className="container text-center ">{category.name}</h2>
                 }
             </div>
             <div className="products-row">
                 {products && products.map(product => (
-                    <div className="card col-lg-3 col-sm-6" >
+                    <div className="card col-lg-3 col-sm-6 border-primary-subtle" >
                         <h5 className="card-title">{product.name}</h5>
+                        <div className="card-text">{product.description}</div>
                         <div className="card-text">LKR {product.price}</div>
                         <div className="card-text">Stock: {product.qty}</div>
-                        <button className="btn btn-dark text-right">
-                            <Link to={`/categories/${id}/products/${product.id}`}>Update</Link>
-                            
-                            </button>
+
                     </div>
                 ))}
             </div>
+
 
         </>
 

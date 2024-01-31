@@ -1,11 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 const Checkout = () => {
 
     const [products, setProducts] = useState(null);
     const [orderProducts, setOrderProducts] = useState([]);
     const [total, setTotal] = useState(0);
+    const {id} = useParams();
 
     const getProducts = async () => {
         const response = await axios.get("http://localhost:8080/products");
@@ -22,8 +24,8 @@ const Checkout = () => {
         const data = {
             products: productIds
         }
-
-        const response = await axios.post("http://localhost:8080/orders", data);
+        
+        const response = await axios.post(`http://localhost:8080/orders/${id}`, data);
         if(response.status === 201) {
             setOrderProducts([]);
             setTotal(0);
@@ -46,6 +48,7 @@ const Checkout = () => {
                                 <div class="card-body">
                                     <h5 class="card-title">{product.name}</h5>
                                     <p class="card-text">LKR {product.price}</p>
+                                    <p class="card-text">{product.description}</p>
                                     <button className="btn btn-sm btn-primary" onClick={() => {
                                         setOrderProducts([...orderProducts, product]);
 

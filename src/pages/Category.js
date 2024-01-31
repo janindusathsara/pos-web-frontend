@@ -1,5 +1,6 @@
 import { useState } from "react";
 import './Styles.css';
+import axios from "axios";
 
 const Category = () => {
 
@@ -9,57 +10,45 @@ const Category = () => {
         setName(event.target.value);
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const data = {
             "name": name
         }
 
-        fetch("http://localhost:8080/categories", {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        }).then((response) => {
-            return response.json();
-        }).then((data) => {
-            setName('');
-            console.log(data)
-        }).catch(error => {
-            console.log(error);
-        })
+        const response = await axios.post("http://localhost:8080/categories", data);
+        if (response.status === 200) {
+            setName("");
+        } else {
+            console.log(response.data);
+        }
 
     }
 
     return (
 
         <>
-
-            <form class="form-horizontal" onSubmit={handleSubmit}>
-                <fieldset>
-
-                    <legend>Create New Category</legend>
-
-                    <div class="form-group">
+            <div className="text-center mb-4 mt-4">
+                <h3>Create New Category</h3>
+            </div>
+            <div className="container forms">
+                <form class="form" onSubmit={handleSubmit}>
+                    <div class="form-group mb-3">
                         <label class="col-md-4 control-label" >Name</label>
-                        <div class="col-md-5">
+                        <div class="form-group mb-3">
                             <input type="text" placeholder="Enter Category Name" class="form-control input-md" required onChange={handleName} value={name} />
 
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for=""></label>
-                        <div class="col-md-4">
+                    <div class="form-group mb-3">
+                        <div class="col-md-6">
                             <button class="btn btn-primary">Save Category</button>
                         </div>
                     </div>
 
-                </fieldset>
-            </form>
-
+                </form>
+            </div>
         </>
 
     )

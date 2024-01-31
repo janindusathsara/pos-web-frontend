@@ -27,7 +27,7 @@ const DropdownCategory = () => {
     return (
         <div>
             <ul className="flex flex-col dropdownCategory">
-                <li className="flex flex-col gap-4 createNewCategory">
+                <li className="flex flex-col gap-4 createNewCategory text-success">
                     <Link to={`/categories`} className="nav-link">Create New Category</Link>
                 </li>
                 {categories && categories.map((category) => (

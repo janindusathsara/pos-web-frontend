@@ -1,11 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 const User = () => {
 
     const [changePassword, setChangePassword] = useState(false);
     const [oldPassword, setOldPassword] = useState(null);
     const [newPassword, setNewPassword] = useState(null);
+    const [products, setProducts] = useState(null);
+    const [orders, setOrders] = useState(null);
+    const { id } = useParams();
+    const navigate = useNavigate();
     const [userDetail, setUserDetail] = useState({
         id: "",
         username: "",
@@ -15,11 +20,23 @@ const User = () => {
 
     useEffect(() => {
         getUserDetails();
+        getMyProducts();
+        getMyOrders();
     }, [])
 
     const getUserDetails = async () => {
         const response = await axios.get("http://localhost:8080/getuser");
         setUserDetail(response.data);
+    }
+
+    const getMyProducts = async () => {
+        const response = await axios.get(`http://localhost:8080/users/products/${id}`);
+        setProducts(response.data);
+    }
+
+    const getMyOrders = async () => {
+        const response = await axios.get(`http://localhost:8080/orders/user/${id}`);
+        setOrders(response.data);
     }
 
     const handleChangePassword = () => {
@@ -62,16 +79,29 @@ const User = () => {
 
             setOldPassword(null);
             setNewPassword(null);
-            alert("Invalid Details");            
+            alert("Invalid Details");
 
         }
 
     }
 
+    const handleProductUpdate = (e) => {
+        navigate(`/user/${id}/update-product/${e.target.value}`);
+    }
+
+    const handleProductDelete = async (e) => {
+        const data = {
+            "productId": e.target.value
+        }
+        const response = await axios.put(`http://localhost:8080/products/delete/${id}`, data);
+        console.log(response.data);
+        getMyProducts();
+    }
+
     return (
         <>
 
-            <div className="container text-center pb-10">
+            <div className="container text-center mt-4">
                 <div className="card">
                     <div className="card-body-user">
                         <h5 className="card-title">User</h5>
@@ -118,6 +148,42 @@ const User = () => {
                 </div>
             )}
 
+            <div className="allProducts">
+                <h3 className="text-center pt-5">My Products</h3>
+                <div className="allProducts">
+                    {products && products.map((product) => (
+                        <div className="card">
+                            <div className="card-body-user">
+                                <h5 className="card-title">{product.name}</h5>
+                                <h7 className="card-text">LKR : {product.price}</h7><br />
+                                <h7 className="card-text">{product.description}</h7><br />
+                                <h7 className="card-text">Remaining Qty : {product.qty}</h7><br />
+                                <h7 className="card-text">Soleded Qty : {product.soldedQty}</h7><br />
+                                <button className="btn btn-secondary mr-2" onClick={handleProductUpdate} value={product.id}>Update</button>
+                                <button className="btn btn-danger mx-2" onClick={handleProductDelete} value={product.id}>Delete</button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                <h3 className="text-center pt-5">My Orders</h3>
+                <div className="allOrders">
+                    {orders && orders.map((order) => (
+                        <div className="card">
+                            <div className="card-body-user">
+                                <h5 className="card-title">{order.id}</h5>
+                                <h7 className="card-text">Date & Time : {order.orderTime}</h7><br />
+                                <ul>
+                                    {order.products && order.products.map((pro) => (
+                                        <li>{pro.name} - LKR {pro.price}</li>
+                                    ))}
+                                </ul>
+                                <h7 className="card-text">Total : {order.total}</h7><br />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
         </>
     )
 
